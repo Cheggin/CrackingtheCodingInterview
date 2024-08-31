@@ -3,8 +3,7 @@ import java.util.HashMap;
 
 public class ChapterOne{
     public static void main(String[] args){
-        System.out.println(oneAway("pale", "paesle"));
-        
+        System.out.println(stringRotation("erbottlewat", "waterbottle"));        
     }
     public static boolean isUnique(String a){ //for each character check if it has a duplicate
         for(int i = 0; i< a.length()-1; i++){
@@ -92,31 +91,105 @@ public class ChapterOne{
         while(inda < a.length() && indb < b.length()){ //while indexes in bounds
             if(a.charAt(inda) != b.charAt(indb)){
                 if(skipped){ //you can only skip one character(e.g. pale, ple would skip 'a')
-                    return false;
-                }
-                if(a.length() > b.length()){
-                    inda++;
-                }
-                else{
-                    indb++;
-                }
-                skipped = true;
+                return false;
+            }
+            if(a.length() > b.length()){
+                inda++;
             }
             else{
-                inda++;
                 indb++;
             }
+            skipped = true;
         }
+        else{
+            inda++;
+            indb++;
+        }
+    }
+    return true;
+}
+public static String stringCompression(String a){ //could be more efficient I think, just count starting at first index of character
+    String ans = "";
+    int i = 0;
+    while(i < a.length()){
+        String curr = a.substring(i, i+1);
+        int j = i+1;
+        int count = 1;
+        while(j < a.length() && a.substring(j, j+1).equals(curr)){
+            count++;
+            j++;
+        }
+        i = j;
+        ans += (curr + Integer.toString(count));
+    }
+    if(a.length() <= ans.length()){
+        return a;
+    }
+    return ans;
+}
+public static int[][] rotateMatrix(int[][] a){
+    int N = a.length;
+    int[][] ans = new int[N][N];
+    /*
+    [ 1  2  3  4 
+    5  6  7  8 
+    9 10 11 12 
+    13 14 15 16]
+    (a,b) -->(b, N-a) such that N = length of matrix, given N x N dimensions
+    */
+    for(int i = 0; i < N; i++){
+        for(int j = 0; j < N; j++){
+            ans[j][N-i-1] = a[i][j];
+        }
+    }
+    return ans;
+}
+public static int[][] zeroMatrix(int[][] a){
+    int M = a.length;
+    int N = a[0].length;
+    int[][] ans = new int[M][N];
+    for(int i = 0; i< M; i++){ //lol because it initializes to all zeroes it causes problems; set all values to 1
+        for(int j =0; j < N; j++){
+            ans[i][j] = 1;
+        }
+    }
+    for(int i = 0; i< M; i++){ //preset zeroes in ans array to avoid duplicates
+        for(int j =0; j < N; j++){
+            if(a[i][j] == 0){
+                for(int row = 0; row < M; row++){
+                    ans[row][j] = 0;
+                }
+                for(int col = 0; col < N; col++){
+                    ans[i][col] = 0;
+                }
+            }
+        }
+    }
+    for(int i = 0; i< M; i++){ //fill in all the spots that zeroes are not in :D
+        for(int j =0; j < N; j++){
+            if(ans[i][j] == 0){
+                continue;
+            }
+            else{
+                ans[i][j] = a[i][j];
+            }
+        }
+    }
+    return ans;
+}
+public static boolean stringRotation(String s1, String s2){//theoretically, just brute force every single "cut" of the string
+    for(int i =0; i< s1.length(); i++){
+        String combined = s1.substring(i, s1.length()) + s1.substring(0, i);
+        if(combined.equals(s2)){
+            return true;
+        }
+    }
+    return false;
+}
+public static boolean isSubstring(String sub, String full){ //for stringRotation, I didn't use it lol
+    if(full.contains(sub)){
         return true;
     }
-    public static String stringCompression(String a){
-        String ans = "";
-        
-
-
-        if(a.length() <= ans.length()){
-            return a;
-        }
-        return ans;
-    }
+    return false;
+}
 }
