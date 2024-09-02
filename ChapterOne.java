@@ -1,6 +1,4 @@
-import java.util.ArrayList;
 import java.util.HashMap;
-
 public class ChapterOne{
     public static void main(String[] args){
         System.out.println(stringRotation("erbottlewat", "waterbottle"));        
