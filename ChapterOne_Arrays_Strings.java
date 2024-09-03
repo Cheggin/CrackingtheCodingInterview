@@ -1,5 +1,5 @@
 import java.util.HashMap;
-public class ChapterOne{
+public class ChapterOne_Arrays_Strings{
     public static void main(String[] args){
         System.out.println(stringRotation("erbottlewat", "waterbottle"));        
     }

@@ -1,5 +1,5 @@
 import java.util.*;
-public class ChapterTwo {
+public class ChapterTwo_Linked_Lists {
     public static void main(String[] args){
         Node head = new Node(2);
         Node loop = new Node(1);
