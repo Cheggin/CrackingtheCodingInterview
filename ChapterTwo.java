@@ -1,17 +1,13 @@
+import java.util.*;
 public class ChapterTwo {
     public static void main(String[] args){
-        Node head1 = new Node(1);
-        Node int1 = new Node(2);
-        Node int12 = new Node(3);
-        head1.next = int1;
-        int1.next = int12;
-        Node head2 = new Node(5);
-        Node int2 = new Node(3);
-        Node int21 = new Node(4);
-        head2.next = int2;
-        int2.next = int21;
-        //System.out.println(sumLists(head1, head2));
-
+        Node head = new Node(2);
+        Node loop = new Node(1);
+        head.next = loop;
+        head.next.next = new Node(3);
+        head.next.next.next = new Node(4);
+        head.next.next.next.next = head;
+        System.out.println(loopDetection(head));
     }
     public static void removeDups(Node head){
         Node lag = head; //pointer which lags behind the main pointer (to find duplicate values)
@@ -97,7 +93,7 @@ public class ChapterTwo {
     }
     return newHead;
 }
-    public static int sumLists(Node head1, Node head2){
+    public static int sumLists(Node head1, Node head2){ //do this reverse as well... recursively?
         int tens = 0;
         int ans = 0;
         Node pointer1 = head1;
@@ -115,5 +111,63 @@ public class ChapterTwo {
         }
         return ans;
     }
-}
- 
+    public static boolean palindrome(Node head){
+        //reverse the linked list?
+        //use a stack..? is that inefficient? maybe. Is it what I think makes a bunch of sense? yes. 
+        Stack<Node> stack = new Stack<>();
+        if(head ==null){return false;}
+        Node pointer = head;
+        while(pointer!=null){
+            stack.push(pointer);
+            pointer = pointer.next;
+        }
+        Node reverseHead = stack.pop();
+        Node lag = reverseHead;
+        Node quick = reverseHead;
+        while(!stack.isEmpty()){
+            quick = stack.pop();
+            if(reverseHead.equals(lag)){
+                reverseHead.next = quick;
+            }
+            lag.next = new Node(quick.data); //"new" keyword to prevent wack asf problems that I don't fully understand but I think is because of simultaneous variables having the same memory space(aka change together when I don't want them to, I had this problem with a different problem and me no likey also this prevents any pointer issues)
+            lag = lag.next;
+        }
+        Node check_pointer = head;
+        Node reverse_check_pointer = reverseHead;
+        while(check_pointer != null && reverse_check_pointer != null){//because one pointer can keep going without the other lol
+            if(check_pointer.data != reverse_check_pointer.data){
+                return false;
+            }
+            check_pointer = check_pointer.next;
+            reverse_check_pointer = reverse_check_pointer.next;
+        }
+        return true;
+    }
+    public static boolean intersection(Node head1, Node head2){//same reference(index) w/ same value
+        Node p1 = head1;
+        Node p2 = head2;
+        while(p1 != null && p2 !=null){
+            if(p1.data == p2.data){
+                return true;
+            }
+            //increment at same rate
+            p1=p1.next;
+            p2=p2.next;
+        }
+        return false;
+    }
+    public static Node loopDetection(Node head){ //if the same exact node shows up twice(because each node is linked to the next so it creates a loop of however many elements are in the middle of the two duplicates)
+        //Floyd's Algorithm isn't working if there is an odd # of elements before the cycle element because then the two nodes will not collide at the cycle element
+        //So instead, use a hashmap? (becomes O(N) space instead of O(1) but I don't know how to use Floyd's Algorithm in this case.)
+        HashMap<Node, Integer> hash = new HashMap<>();
+        Node pointer= head;
+        while(pointer!=null){
+            if(hash.containsKey(pointer)){
+                return pointer;
+            }
+            hash.put(pointer, pointer.data);
+            pointer = pointer.next;
+        }
+        return null;
+    }
+} 
