@@ -105,6 +105,48 @@ public class ChapterSix_Math_Logic_Puzzles {
          * 
          */
     }
+    public static void hundredLockers(){
+        /*
+         * Hunderd lockers in a hallway, all 100 lockers are opened. Then he closes every second locker, then every third, until 100. How many lockers are open on pass 100?
+         * ONLY THE PERFECT SQUARES HAVE AN ODD NUMBER OF SWITCHES
+         * 1, 4, 9, 16, 25, 36, 49, 64, 81, 100
+         * I forgot 100. GOSH FREAKING SAFKHASKF NA SK ,FBSKGLSHKGLSDHGK;LWDBG KJ;LAWHG KLJWABGJKLASGBL
+         * I'm so sad I forgot 100 but my logic was correct. fmkfmklfmlkfmlfmlfmlfmlfmlfmlfmlfmlf
+         * 
+         */
+    }
+    public static void poison(){
+        /*
+         * 1000 bottles of soda, one is poisoned. 
+         * 10 test strips to detect poison
+         * A single drop of poison will turn the test strip positive permanently
+         * Any number of drops on a strip at once and reuse a test strip as many times as long as it's negative
+         * You can only run tests once per day and it takes 7 days to return a result
+         * How to figure out the poisoned bottle in as few days as possible?
+         * 
+         * Write code to simulate.
+         * 
+         * 
+         * Theoretically, you could continuously narrow it down using simple divisiom. This probably isn't the fastest, but this is my first instinct for a solution.
+         * 
+         * 1000 bottles of soda, and run 100 bottles per strip(separating them as needed).
+         * One of the strips turns positive. Throw it out, 9 strips left, 100 bottles, 7 days elapsed.
+         * 100/9: 11 bottles per strip, except one strip which uses 12. 
+         * One of the strips turns positive. Throw it out, 8 strips left, 11 or 12 bottles, 14 days elapsed.
+         * 11/8: 2 for 3 bottles, 1 for 8 bottles. 
+         * 12/8: 2 for 4 bottles, 1 for 8 bottles. 
+         * Most likely, you take 21 days.
+         * Otherwise, at maximum with this approach, you take 28 days. 
+         * 
+         * Let's separate by days of the week. 
+         *  
+         */
+        boolean[] strips = new boolean[10];
+        boolean[] soda = new boolean[1000];
+        soda[300] = true; //300th bottle is poison
+
+    }
+
 
 
 }
